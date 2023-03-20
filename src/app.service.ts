@@ -21,8 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
-const phrasesRef = ref(database, 'phrases');
-// const snapshot = await get(phrasesRef)
+const phrasesRef = {footer: ref(database, 'footerPhrases'), subheader: ref(database, 'subheaderPhrases')};
 
 @Injectable()
 export class AppService {
@@ -30,9 +29,9 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async getData(): Promise<any> {
+  async getPhrases(source: string): Promise<any> {
     try {
-      const snapshot = await get(phrasesRef)
+      const snapshot = await get(phrasesRef[source])
       if (snapshot.exists()) {
         console.log(snapshot.val());
       } else {

@@ -10,8 +10,13 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/data')
-  async getData() {
-    return await this.appService.getData();
+  @Get('/phrases/subheader')
+  async getPhrasesSubheader() {
+    return await this.appService.getPhrases('subheader');
+  }
+
+  @Get('/phrases/footer')
+  async getPhrasesFooter() {
+    return await this.appService.getPhrases('footer');
   }
 }
