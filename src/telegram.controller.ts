@@ -6,7 +6,7 @@ export class TelegramController {
   constructor(private readonly telegramService: TelegramService) {}
 
   @Post()
-  async handleUpdate(@Body() update: any): Promise<void> {
+  async handleUpdate(@Body() update: any): Promise<any> {
     await this.telegramService.handleUpdate(update);
   }
 }

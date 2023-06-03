@@ -11,12 +11,17 @@ export class TelegramService {
     this.WEB_APP_URL = 'https://petrtopor.github.io/personal-portfolio-website/telegram-web-app.html';
   }
 
-  async handleUpdate(update: any): Promise<void> {
+  async handleUpdate(update: any): Promise<any> {
+    console.log("handleUpdate()")
+    console.log(update.message)
     if (
       update.message &&
       update.message.text &&
       update.message.text.toLowerCase() === '/start'
     ) {
+      await this.sendStartMessage(update.message.chat.id);
+    } else {
+      console.log('Wr0n6 St4Rt m3s$agE')
       await this.sendStartMessage(update.message.chat.id);
     }
   }
@@ -47,15 +52,22 @@ export class TelegramService {
             web_app: {
               url: this.WEB_APP_URL
             }
-          },
-        ],
-      ],
+          }
+        ]
+      ]
     };
 
     await this.sendRequest('sendMessage', {
       chat_id: chatId,
       text: 'Welcome to the bot! Click the button below to access the web app.',
-      reply_markup: JSON.stringify(inlineKeyboard),
+      reply_markup: JSON.stringify(inlineKeyboard)
+    });
+  }
+
+  async sendErrorMessage(chatId: number): Promise<void> {
+    await this.sendRequest('sendMessage', {
+      chat_id: chatId,
+      text: 'Wr0n6 St4Rt m3s$agE.'
     });
   }
 }
