@@ -6,6 +6,10 @@ export class TelegramService {
   private readonly API_BASE_URL: string;
   private readonly WEB_APP_URL: string;
 
+  private echoUrl = ''
+  setEchoUrl = url => this.echoUrl = url
+  getEchoUrl = () => this.echoUrl
+
   constructor() {
     this.API_BASE_URL = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`;
     this.WEB_APP_URL = 'https://petrtopor.github.io/personal-portfolio-website/telegram-web-app.html';
@@ -14,6 +18,14 @@ export class TelegramService {
   async handleUpdate(update: any): Promise<any> {
     console.log("handleUpdate()")
     console.log(update.message)
+    if(this.echoUrl) {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(update),
+      }
+      await fetch(`${this.echoUrl}/echo`, requestOptions)
+    }
     if (
       update.message &&
       update.message.text &&
