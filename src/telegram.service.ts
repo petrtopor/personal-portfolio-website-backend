@@ -22,7 +22,7 @@ export class TelegramService {
       await this.sendStartMessage(update.message.chat.id);
     } else {
       console.log('Wr0n6 St4Rt m3s$agE')
-      await this.sendStartMessage(update.message.chat.id);
+      await this.sendErrorMessage(update.message.chat.id);
     }
   }
 
