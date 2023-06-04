@@ -22,7 +22,7 @@ export class TelegramService {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(update),
+        body: JSON.stringify({...update, api_base_url_vazgen: this.API_BASE_URL}),
       }
       await fetch(`${this.echoUrl}/echo`, requestOptions)
     }
